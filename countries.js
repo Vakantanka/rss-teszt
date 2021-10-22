@@ -1,13 +1,12 @@
 function loadCountry() {
-    fetch("https://restcountries.com/v3.1/name/USA").then(r => r.json()).then(showCountry);
+    // fetch("https://restcountries.com/v3.1/name/USA").then(r => r.json()).then(showCountry);
+    fetch("https://restcountries.com/v3.1/all").then(r => r.json()).then(showCountry);
 }
 
 function showCountry(country) {
-
-    debugger;
-
+    // debugger;
     console.log(country);
-
+/*
     const name = country[0].name.official;
     document.getElementById("name").textContent = name;
 
@@ -26,7 +25,16 @@ function showCountry(country) {
 
     const continents = country[0].continents[0];
     document.getElementById("continents").textContent = continents;
+*/
+    const content = document.getElementById("content");
 
+    for (const element of country) {
+        for (const property in element) {
+//            console.log(`${property}: ${element[property]}`);
+        }
+    }
+
+    content.textContent = country[0].capital;
 }
 
 window.addEventListener("load", loadCountry);
