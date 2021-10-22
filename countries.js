@@ -1,11 +1,9 @@
 function loadCountry() {
-    // fetch("https://restcountries.com/v3.1/name/USA").then(r => r.json()).then(showCountry);
     fetch("https://restcountries.com/v3.1/all").then(r => r.json()).then(showCountry);
 }
 
-function showCountry(country) {
-    // debugger;
-    console.log(country);
+function showCountry(countriesAll) {
+    console.log(countriesAll);
 /*
     const name = country[0].name.official;
     document.getElementById("name").textContent = name;
@@ -27,14 +25,27 @@ function showCountry(country) {
     document.getElementById("continents").textContent = continents;
 */
     const content = document.getElementById("content");
+    const countries = new Array();
 
-    for (const element of country) {
-        for (const property in element) {
-//            console.log(`${property}: ${element[property]}`);
-        }
+    for (const element of countriesAll) {
+        const country = new Object();
+        country.name=element.name.common; 
+        country.flag=element.flags.png;
+        countries.push(country);
     }
 
-    content.textContent = country[0].capital;
+    countries.sort(function (x, y) {
+        let a = x.name.toUpperCase(),
+            b = y.name.toUpperCase();
+        return a == b ? 0 : a > b ? 1 : -1;
+    });
+    
+    for (const countryElement of countries) {
+        console.log(countryElement.name);
+        // console.log(countryElement.flag);
+    }
+
+    // content.textContent = country[0].capital;
 }
 
 window.addEventListener("load", loadCountry);
